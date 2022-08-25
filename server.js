@@ -5,8 +5,18 @@ const path = require("path");
 
 const port = process.env.PORT || 4000;
 
-const errorHandler = require('./middlewares/errorHandler')
+const mongoose = require("mongoose");
+
+const errorHandler = require("./middlewares/errorHandler");
 const postRoutes = require("./routes/post");
+
+mongoose.Promise = global.Promise;
+mongoose.connect("mongodb://localhost/insta-node", { useNewUrlParser: true });
+const db = mongoose.connection;
+db.on("error", console.error.bind(console, "connection error"));
+db.once("open", () => {
+  console.log(`[MongoDB is connected!!]`);
+});
 
 app.use(cors());
 app.use(express.json());
