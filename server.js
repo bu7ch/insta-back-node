@@ -8,9 +8,10 @@ const port = process.env.PORT || 4000;
 
 const mongoose = require("mongoose");
 
-const passportJWT = require('./middlewares/passportJWT')();
+const passportJWT = require("./middlewares/passportJWT")();
 const errorHandler = require("./middlewares/errorHandler");
 const postRoutes = require("./routes/post");
+const authRoutes = require("./routes/auth");
 
 mongoose.Promise = global.Promise;
 mongoose.connect("mongodb://localhost/insta-node", { useNewUrlParser: true });
@@ -28,6 +29,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(passportJWT.initialize());
 
 app.use("/api/post", postRoutes);
+app.use("/api/auth", authRoutes);
 app.use(errorHandler);
 
 app.listen(port, () => console.log(`[🚧 Listenning...!]`));
