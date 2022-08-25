@@ -11,6 +11,8 @@ postRouter.post(
   hasDescription,
   postController.store
 );
-postRouter.patch("/:id",hasDescription, postController.update); //FIXME: bug w/ errorHandler
+postRouter.patch("/:id", hasDescription, postController.update); //FIXME: bug w/ errorHandler
+postRouter.delete("/:id", postController.delete);
+// TODO: faire la suppression & creation du model User
 
 module.exports = postRouter;
