@@ -28,8 +28,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(passportJWT.initialize());
 
-app.use("/api/post", postRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/post", passportJWT.authenticate(), postRoutes);
 app.use(errorHandler);
 
 app.listen(port, () => console.log(`[🚧 Listenning...!]`));
