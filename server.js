@@ -8,6 +8,7 @@ const port = process.env.PORT || 4000;
 
 const mongoose = require("mongoose");
 
+const passportJWT = require('./middlewares/passportJWT')();
 const errorHandler = require("./middlewares/errorHandler");
 const postRoutes = require("./routes/post");
 
@@ -24,6 +25,7 @@ app.use(volleyball);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
+app.use(passportJWT.initialize());
 
 app.use("/api/post", postRoutes);
 app.use(errorHandler);
